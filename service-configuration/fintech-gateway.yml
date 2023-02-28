@@ -1,0 +1,22 @@
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+
+spring:
+  cloud:
+    gateway:
+      default-filters: #filtro por defecto de todas las request realizadas al gateway
+        - name: LogFilter
+      routes:
+        - id: productRoute #identificador de la ruta
+          uri: http://localhost:8082/ #URL donde se hará el redirect segun el predicado definido
+          predicates: #Reglas de analisis de request
+            - Path=/product/** #path de url de request a considerar
+        - id: userRoute
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/user/**
+          filters:
+            - AddRequestHeader=user-request-header, custom-user-request-header
+            - AddResponseHeader=user-respons-header, custom-user-response-header
