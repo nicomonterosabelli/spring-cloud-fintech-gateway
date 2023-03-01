@@ -34,7 +34,7 @@ eureka:
     endpoint:
       gateway:
         enabled: true
-    endpoints:
+    endpoints: 
       web:
         exposure:
           include: gateway
