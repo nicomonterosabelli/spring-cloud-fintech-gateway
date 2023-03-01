@@ -17,8 +17,7 @@ spring:
         - id: mssubscription
           uri: lb://ms-subscription
           predicates:
-            - Path=/subscription/**
-          
+            - Path=/subscription/**          
 
 info:
   app:
