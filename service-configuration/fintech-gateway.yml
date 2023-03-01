@@ -1,22 +1,42 @@
-eureka:
-  client:
-    registerWithEureka: true
-    fetchRegistry: false
+server:
+  port: ${PORT:${SERVER_PORT:8080}}
 
 spring:
+  application:
+    name: gateway
   cloud:
     gateway:
-      default-filters: #filtro por defecto de todas las request realizadas al gateway
-        - name: LogFilter
+      discovery:
+        locator:
+          enabled: true
       routes:
-        - id: productRoute #identificador de la ruta
-          uri: http://localhost:8082/ #URL donde se hará el redirect segun el predicado definido
+        - id: mscourse #identificador de la ruta
+          uri: lb://ms-course #URL donde se hará el redirect segun el predicado definido
           predicates: #Reglas de analisis de request
-            - Path=/product/** #path de url de request a considerar
-        - id: userRoute
-          uri: http://localhost:8081/
+            - Path=/course/** #path de url de request a considerar
+        - id: mssubscription
+          uri: lb://ms-subscription
           predicates:
-            - Path=/user/**
+            - Path=/subscription/**
           filters:
             - AddRequestHeader=user-request-header, custom-user-request-header
             - AddResponseHeader=user-respons-header, custom-user-response-header
+
+info:
+  app:
+    name: ${spring.application.name}
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: true
+    serviceURL:
+      defaultZone: http://localhost:8761/eureka
+  management:
+    endpoint:
+      gateway:
+        enabled: true
+    endpoints:
+      web:
+        exposure:
+          include: gateway
