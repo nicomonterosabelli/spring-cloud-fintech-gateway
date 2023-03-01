@@ -18,9 +18,7 @@ spring:
           uri: lb://ms-subscription
           predicates:
             - Path=/subscription/**
-          filters:
-            - AddRequestHeader=user-request-header, custom-user-request-header
-            - AddResponseHeader=user-respons-header, custom-user-response-header
+          
 
 info:
   app:
