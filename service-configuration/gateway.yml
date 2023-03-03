@@ -12,14 +12,14 @@ spring:
       default-filters:
         - name: FilterCustom
       routes:
-        - id: mscourse #identificador de la ruta
-          uri: lb://ms-course #URL donde se hará el redirect segun el predicado definido
+        - id: movieService #identificador de la ruta
+          uri: lb://movie-service #URL donde se hará el redirect segun el predicado definido
           predicates: #Reglas de analisis de request
-            - Path=/course/** #path de url de request a considerar
-        - id: mssubscription
-          uri: lb://ms-subscription
+            - Path=/movies/** #path de url de request a considerar
+        - id: catalogService
+          uri: lb://catalog-service
           predicates:
-            - Path=/subscription/**              
+            - Path=/catalog/**              
 
 info:
   app:
