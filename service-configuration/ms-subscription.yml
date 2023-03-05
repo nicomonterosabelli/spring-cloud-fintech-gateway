@@ -4,8 +4,20 @@ server:
 idRandom: ${random.value}
 
 spring:
+  datasource:
+    url: jdbc:h2:mem:catalogservice
+    driverClassName: org.h2.Driver
+    username: sa
+    password: sa
+  h2:
+    console:
+      enable: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-autocreate: create-drop
   application:
-    name: ms-subscription
+    name: movie-service
 eureka:
   instance:
     hostname: localhost
